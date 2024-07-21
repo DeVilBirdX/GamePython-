@@ -8,29 +8,31 @@
 </head>
 <body onload="brython()">
     <h1>Python Game</h1>
-    <button onclick="guess_the_number()">Play Game</button>
+    <button id="play-button">Play Game</button>
     <pre id="output"></pre>
     <script type="text/python">
-        from browser import document, html
+        from browser import document, html, window
         import random
 
-        def guess_the_number():
+        def guess_the_number(event):
             number_to_guess = random.randint(1, 100)
             guess = None
             attempts = 0
             
-            document['output'].text = "Welcome to 'Guess the Number'!\nI'm thinking of a number between 1 and 100."
+            document["output"].text = "Welcome to 'Guess the Number'!\nI'm thinking of a number between 1 and 100."
             
             while guess != number_to_guess:
                 guess = int(window.prompt("Take a guess:"))
                 attempts += 1
                 
                 if guess < number_to_guess:
-                    document['output'].text += "\nYour guess is too low."
+                    document["output"].text += "\nYour guess is too low."
                 elif guess > number_to_guess:
-                    document['output'].text += "\nYour guess is too high."
+                    document["output"].text += "\nYour guess is too high."
                 else:
-                    document['output'].text += f"\nCongratulations! You guessed the number in {attempts} attempts."
+                    document["output"].text += f"\nCongratulations! You guessed the number in {attempts} attempts."
+        
+        document["play-button"].bind("click", guess_the_number)
     </script>
 </body>
 </html>
